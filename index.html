@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almaty Evakuator | 24/7 Көмек</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #050508;
+            --bg-elevated: #0c0c12;
+            --bg-card: #12121c;
+            --accent: #ff3b3b;
+            --accent-glow: rgba(255, 59, 59, 0.4);
+            --accent-soft: rgba(255, 59, 59, 0.08);
+            --text: #ffffff;
+            --text-dim: #a8a8c0;
+            --text-muted: #5a5a72;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-strong: rgba(255, 255, 255, 0.12);
+            --success: #00d46a;
+            --warning: #ffb800;
+            --radius: 24px;
+            --radius-sm: 16px;
+            --shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--accent), #ff5555);
+            border-radius: 6px;
+        }
+
+        /* Wide Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(5, 5, 8, 0.6);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+            padding: 24px 0;
+        }
+
+        header.scrolled {
+            background: rgba(5, 5, 8, 0.95);
+            padding: 16px 0;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -0.03em;
+        }
+
+        .logo-mark {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--accent), #ff6b6b);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 0 40px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-mark::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--accent), transparent);
+            animation: spin 6s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 48px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-menu a:hover {
+            color: var(--text);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .header-cta {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .phone-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.15rem;
+            transition: var(--transition);
+            padding: 12px 22px;
+            border-radius: 50px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+        }
+
+        .phone-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Premium Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            font-family: inherit;
+            letter-spacing: 0.03em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #ff5555);
+            color: #fff;
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border-strong);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .btn-large {
+            padding: 20px 48px;
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--bg-elevated);
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            overflow: hidden;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .layer-bg {
+            z-index: 1;
+        }
+
+        .layer-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 70% 30%, rgba(255, 59, 59, 0.15), transparent 50%),
+                radial-gradient(ellipse at 30% 70%, rgba(255, 255, 255, 0.05), transparent 50%),
+                linear-gradient(180deg, #050508 0%, #0a0a12 100%);
+        }
+
+        .layer-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100px 100px;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+        }
+
+        .layer-towtruck {
+            z-index: 3;
+            opacity: 0.95;
+        }
+
+        .towtruck-photo {
+            position: absolute;
+            right: -5%;
+            bottom: -15%;
+            width: 70%;
+            max-width: 1400px;
+            filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.8));
+            transition: transform 0.1s linear;
+        }
+
+        .layer-foreground {
+            z-index: 4;
+        }
+
+        .layer-foreground::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, var(--bg), transparent);
+        }
+
+        .layer-particles {
+            z-index: 2;
+            opacity: 0.7;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: float-particle 20s infinite ease-in-out;
+        }
+
+        @keyframes float-particle {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            33% { transform: translate(40px, -60px) scale(1.3); opacity: 0.5; }
+            66% { transform: translate(-30px, -40px) scale(0.8); opacity: 0.3; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 212, 106, 0.15);
+            color: var(--success);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 212, 106, 0.3);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-badge .pulse {
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3.5rem, 9vw, 7.5rem);
+            font-weight: 800;
+            line-height: 1.0;
+            margin-bottom: 32px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero h1 .accent {
+            background: linear-gradient(135deg, var(--accent), #ff8a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1 .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-dim);
+            margin-bottom: 56px;
+            max-width: 700px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 80px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Sections */
+        .section {
+            padding: 160px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 100px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            padding: 10px 24px;
+            background: var(--accent-soft);
+            border-radius: 50px;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 28px;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 1.25rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Services - Horizontal Scroll Inspired */
+        .services-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .service-showcase-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 60px 50px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .service-showcase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .service-showcase-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(255, 59, 59, 0.3);
+            box-shadow: var(--shadow);
+            background: var(--bg-elevated);
+        }
+
+        .service-showcase-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon-large {
+            width: 90px;
+            height: 90px;
+            background: var(--accent-soft);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 32px;
+            transition: var(--transition);
+        }
+
+        .service-showcase-card:hover .service-icon-large {
+            transform: scale(1.1) rotate(-5deg);
+            background: rgba(255, 59, 59, 0.2);
+        }
+
+        .service-showcase-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .service-showcase-card p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .service-features-large {
+            list-style: none;
+        }
+
+        .service-features-large li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+
+        .service-features-large i {
+            color: var(--success);
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        /* Service Areas - Map Inspired */
+        .areas-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .area-showcase-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 40px 32px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .area-showcase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .area-showcase-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+        }
+
+        .area-showcase-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .area-showcase-card i {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .area-showcase-card h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .area-showcase-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* How It Works - Timeline */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+        }
+
+        .timeline-step {
+            text-align: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .timeline-number {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            box-shadow: 0 0 40px var(--accent-glow);
+            z-index: 2;
+        }
+
+        .timeline-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--bg-elevated);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin: 0 auto 28px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .timeline-step:hover .timeline-icon {
+            transform: scale(1.1) rotate(-5deg);
+            background: var(--accent-soft);
+        }
+
+        .timeline-step h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .timeline-step p {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Why Us - Large Type */
+        .why-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+        }
+
+        .why-large-item {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-large-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .why-large-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .why-large-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-icon-large {
+            width: 100px;
+            height: 100px;
+            background: var(--accent-soft);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent);
+            margin: 0 auto 28px;
+            transition: var(--transition);
+        }
+
+        .why-large-item:hover .why-icon-large {
+            transform: scale(1.1) rotate(-5deg);
+            background: rgba(255, 59, 59, 0.2);
+        }
+
+        .why-large-item h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .why-large-item p {
+            color: var(--text-dim);
+            font-size: 1.15rem;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Large CTA */
+        .cta-section {
+            position: relative;
+            padding: 200px 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .cta-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at center, rgba(255, 59, 59, 0.18), transparent 60%),
+                linear-gradient(180deg, var(--bg), var(--bg-elevated));
+        }
+
+        .cta-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+        }
+
+        .cta-content p {
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            margin-bottom: 56px;
+            font-weight: 400;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 28px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .cta-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .cta-phone a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #020205;
+            padding: 100px 0 50px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 80px;
+            margin-bottom: 70px;
+        }
+
+        .footer-brand {
+            max-width: 450px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .footer-logo .logo-mark {
+            width: 48px;
+            height: 48px;
+        }
+
+        .footer-logo span {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .footer-brand p {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            width: 52px;
+            height: 52px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .footer-column h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 28px;
+            color: var(--text);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 18px;
+        }
+
+        .footer-column a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            transform: translateX(6px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Floating Call */
+        .floating-call {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .floating-btn {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #ff5555);
+            color: #fff;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 10px 40px var(--accent-glow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .floating-btn:hover::before {
+            left: 100%;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 15px 50px var(--accent-glow);
+        }
+
+        .floating-label {
+            background: var(--bg-elevated);
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(25px);
+            transition: var(--transition);
+            pointer-events: none;
+            color: var(--text);
+            backdrop-filter: blur(10px);
+        }
+
+        .floating-call:hover .floating-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%) translateY(140px);
+            background: var(--success);
+            color: #fff;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            z-index: 1100;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.1rem;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .container {
+                padding: 0 50px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .services-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .why-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 60px;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                right: 0;
+                background: var(--bg-card);
+                border-bottom: 1px solid var(--border);
+                padding: 40px;
+                flex-direction: column;
+                gap: 28px;
+                display: none;
+                z-index: 999;
+                backdrop-filter: blur(20px);
+            }
+
+            .mobile-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu a {
+                color: var(--text);
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.3rem;
+                padding: 16px 0;
+                border-bottom: 1px solid var(--border);
+                transition: var(--transition);
+                letter-spacing: 0.02em;
+            }
+
+            .mobile-menu a:hover {
+                color: var(--accent);
+            }
+
+            .mobile-menu a:last-child {
+                border-bottom: none;
+                margin-top: 10px;
+                justify-content: center;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .hero-stats {
+                gap: 40px;
+            }
+
+            .areas-showcase {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 120px 0;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .floating-call {
+                bottom: 20px;
+                right: 20px;
+                flex-direction: row;
+                gap: 12px;
+            }
+
+            .floating-label {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .floating-btn {
+                width: 64px;
+                height: 64px;
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .stat-value {
+                font-size: 2.2rem;
+            }
+
+            .services-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .areas-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .why-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .cta-content p {
+                font-size: 1.1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Image Placeholder Styles */
+        .towtruck-photo-placeholder {
+            background: linear-gradient(135deg, #1a1a2e, #2d2d44);
+            border: 2px solid var(--border-strong);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 60px;
+            min-height: 500px;
+        }
+
+        .towtruck-photo-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <div class="logo-mark">
+                    <i class="fas fa-truck-moving"></i>
+                </div>
+                <span>AlmatyEvakuator</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#services">Қызметтер</a></li>
+                    <li><a href="#areas">Аймақтар</a></li>
+                    <li><a href="#how-it-works">Қалай жұмыс істейді</a></li>
+                    <li><a href="#why-us">Неге біз</a></li>
+                    <li><a href="#contact">Байланыс</a></li>
+                </ul>
+            </nav>
+            <div class="header-cta">
+                <a href="tel:+77079116196" class="phone-link">
+                    <i class="fas fa-phone"></i>
+                    <span>+7 707 911 61 96</span>
+                </a>
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-bolt"></i> Шақыру
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#services">Қызметтер</a>
+            <a href="#areas">Аймақтар</a>
+            <a href="#how-it-works">Қалай жұмыс істейді</a>
+            <a href="#why-us">Неге біз</a>
+            <a href="#contact">Байланыс</a>
+            <a href="tel:+77079116196" class="phone-link" style="margin-top:10px; justify-content:center;">
+                <i class="fas fa-phone"></i> +7 707 911 61 96
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="parallax-layer layer-bg" data-speed="0.2"></div>
+        <div class="parallax-layer layer-particles" data-speed="0.5"></div>
+        <div class="parallax-layer layer-towtruck" data-speed="0.6">
+            <!-- REAL TOW TRUCK PHOTOGRAPH SHOULD BE INSERTED HERE -->
+            <!-- Replace the src attribute with a high-quality real tow truck photograph -->
+            <img class="towtruck-photo" src="https://images.unsplash.com/photo-1586563748675-5d5b3c9f7b8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Эвакуатор" onerror="this.style.display='none'; this.parentElement.innerHTML += '<div class=&quot;towtruck-photo-placeholder&quot;><i class=&quot;fas fa-truck&quot;></i><span>Реалды эвакуатор фото суретін орналастыру үшін бул жерге суретін қойыңыз</span></div>'">
+        </div>
+        <div class="parallax-layer layer-foreground" data-speed="0.8"></div>
+        
+        <div class="container hero-content">
+            <div class="hero-badge reveal">
+                <span class="pulse"></span>
+                24/7 Қызмет · Тез жауап · Алматы және аймақ
+            </div>
+            <h1 class="reveal">
+                Көлігіңіз жолда <span class="accent">қалды ма?</span>
+            </h1>
+            <p class="reveal">
+                24/7 эвакуатор қызметі. Алматы және жақын аудандар бойынша жылдам көмек.
+                Орташа жауап уақыты — 20 минут.
+            </p>
+            <div class="hero-cta reveal">
+                <a href="tel:+77079116196" class="btn btn-primary btn-large">
+                    <i class="fas fa-truck-moving"></i> Эвакуатор шақыру
+                </a>
+                <a href="tel:+77079116196" class="btn btn-secondary btn-large">
+                    <i class="fas fa-phone"></i> Қоңырау шалу
+                </a>
+            </div>
+            <div class="hero-stats reveal">
+                <div class="stat">
+                    <span class="stat-value">24/7</span>
+                    <span class="stat-label">Қызмет уақыты</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">20 мин</span>
+                    <span class="stat-label">Орташа жауап</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">150+</span>
+                    <span class="stat-label">Мамандар</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">8</span>
+                    <span class="stat-label">Аймақ қызметі</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Қызметтеріміз</div>
+                <h2 class="section-title">Толық көмек пакеттері</h2>
+                <p class="section-desc">Кез келген жағдайда сізге жылдам және сапалы көмек көрсетеміз</p>
+            </div>
+            <div class="services-showcase">
+                <div class="service-showcase-card reveal">
+                    <div>
+                        <div class="service-icon-large">
+                            <i class="fas fa-truck-moving"></i>
+                        </div>
+                        <h3>Эвакуатор қызметі</h3>
+                        <p>Көліктің барлық түрін сақтап, кедергісіз тасымалдау. Бізде барлық типтес эвакуаторлар бар.</p>
+                    </div>
+                    <ul class="service-features-large">
+                        <li><i class="fas fa-check"></i> Жеке автокөліктер</li>
+                        <li><i class="fas fa-check"></i> Жүк автокөліктер</li>
+                        <li><i class="fas fa-check"></i> Мотоциклдер</li>
+                        <li><i class="fas fa-check"></i> Құрал-жабдықтар</li>
+                    </ul>
+                </div>
+                <div class="service-showcase-card reveal">
+                    <div>
+                        <div class="service-icon-large">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Жолдағы көмек</h3>
+                        <p>Көлік тұрақты болмағанда немесе жолдық көмек керек болғанда.</p>
+                    </div>
+                    <ul class="service-features-large">
+                        <li><i class="fas fa-check"></i> Шынын тесік жөндеу</li>
+                        <li><i class="fas fa-check"></i> Аккумулятор тастау</li>
+                        <li><i class="fas fa-check"></i> От жану кезінде көмек</li>
+                        <li><i class="fas fa-check"></i> Клапан астында жатыр</li>
+                    </ul>
+                </div>
+                <div class="service-showcase-card reveal">
+                    <div>
+                        <div class="service-icon-large">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Апаттан кейін тасымалдау</h3>
+                        <p>Көлік апаттан кейін зақымдалғанда, оны қауіпсіз жеткізу қажет.</p>
+                    </div>
+                    <ul class="service-features-large">
+                        <li><i class="fas fa-check"></i> Сақтандыру шарттары</li>
+                        <li><i class="fas fa-check"></i> Кедергісіз тасымалдау</li>
+                        <li><i class="fas fa-check"></i> Толық қауіпсіздік</li>
+                        <li><i class="fas fa-check"></i> Кез келген жағдайда</li>
+                    </ul>
+                </div>
+                <div class="service-showcase-card reveal">
+                    <div>
+                        <div class="service-icon-large">
+                            <i class="fas fa-truck-loading"></i>
+                        </div>
+                        <h3>Көлікті қауіпсіз жеткізу</h3>
+                        <p>Көлікті кедергісіз жеткізуді қамтамасыз етеміз. Мамандар қауіпсіздік ережелерін сақтайды.</p>
+                    </div>
+                    <ul class="service-features-large">
+                        <li><i class="fas fa-check"></i> Жеке тасымалдау</li>
+                        <li><i class="fas fa-check"></i> Жүк тасымалдау</li>
+                        <li><i class="fas fa-check"></i> Қауіпсіз көтеру</li>
+                        <li><i class="fas fa-check"></i> Жеткізу уақыты</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas -->
+    <section class="section areas" id="areas">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Қызмет аймақтары</div>
+                <h2 class="section-title">Біздің қызмет аймақтарымыз</h2>
+                <p class="section-desc">Алматы қаласы және айналасындағы аймақтарды қамтиды</p>
+            </div>
+            <div class="areas-showcase">
+                <div class="area-showcase-card reveal">
+                    <i class="fas fa-city"></i>
+                    <h4>Алматы</h4>
+                    <p>Қала орталығы және аймақтары</p>
+                </div>
+                <div class="area-showcase-card reveal">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Қаскелең</h4>
+                    <p>Қала аймағы және айналасы</p>
+                </div>
+                <div class="area-showcase-card reveal">
+                    <i class="fas fa-mountain"></i>
+                    <h4>Шамалған</h4>
+                    <p>Қала аймағы және айналасы</p>
+                </div>
+                <div class="area-showcase-card reveal">
+                    <i class="fas fa-road"></i>
+                    <h4>ұзынағаш</h4>
+                    <p>Қала аймағы және айналасы</p>
+                </div>
+                <div class="area-showcase-card reveal">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Жандосов</h4>
+                    <p>Қала аймағы және айналасы</p>
+                </div>
+                <div class="area-showcase-card reveal">
+                    <i class="fas fa-map"></i>
+                    <h4>Басқа аймақтар</h4>
+                    <p>Алматы облысы және айналасы</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Қалай жұмыс істейді</div>
+                <h2 class="section-title">4 қадам — көмек сіз қолыңызда</h2>
+                <p class="section-desc">Кез келген қиын жағдайда бізге хабарласыңыз, біз сізге көмектесеміз</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-step reveal">
+                    <div class="timeline-number">01</div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Қоңырау шаласыз</h3>
+                    <p>Біздің 24/7 қызметіне хабарласыңыз немесе WhatsApp арқылы хабарлама жіберіңіз.</p>
+                </div>
+                <div class="timeline-step reveal">
+                    <div class="timeline-number">02</div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Орын анықтау</h3>
+                    <p>Сіздің орналасқан орныңызды нақты анықтаймыз және жағдайды талдаймыз.</p>
+                </div>
+                <div class="timeline-step reveal">
+                    <div class="timeline-number">03</div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Эвакуатор келеді</h3>
+                    <p>Жақын орналасқан эвакуатор мен маманды жібереміз. Орташа уақыт — 20 минут.</p>
+                </div>
+                <div class="timeline-step reveal">
+                    <div class="timeline-number">04</div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Көлігіңізді жеткіземіз</h3>
+                    <p>Көлікті тез және қауіпсіз тасымалдаймыз немесе жолдық көмек көрсетеміз.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section class="section" id="why-us">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Неге біз</div>
+                <h2 class="section-title">Бізді таңдауыңыз керек</h2>
+                <p class="section-desc">Клиенттерімізге қажетті көмекті жылдам және сапалы көрсетеміз</p>
+            </div>
+            <div class="why-showcase">
+                <div class="why-large-item reveal">
+                    <div class="why-icon-large">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24/7 жұмыс</h3>
+                    <p>Кез келген уақытта және кез келген күні бізге хабарласа аласыз. Қызмет тұрақты.</p>
+                </div>
+                <div class="why-large-item reveal">
+                    <div class="why-icon-large">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Жылдам жету</h3>
+                    <p>Орташа жауап уақыты — 20 минут. Жақын орналасқан эвакуаторларды пайдаланамыз.</p>
+                </div>
+                <div class="why-large-item reveal">
+                    <div class="why-icon-large">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Тәжірибелі жүргізушілер</h3>
+                    <p>Барлық мамандарымыз көп жылдық тәжірибеге ие және қауіпсіздік ережелерін біледі.</p>
+                </div>
+                <div class="why-large-item reveal">
+                    <div class="why-icon-large">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Қауіпсіз тасымалдау</h3>
+                    <p>Көліктің барлық түрін қауіпсіз тасымалдаймыз. Сақтандыру шарттарын сақтаймыз.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Large CTA -->
+    <section class="cta-section" id="contact">
+        <div class="cta-bg"></div>
+        <div class="container">
+            <div class="cta-content reveal">
+                <h2>Көлігіңіз жолда қалды ма?</h2>
+                <p>Қазір эвакуатор шақырыңыз — көмек сіз қолыңызда!</p>
+                <div class="cta-buttons">
+                    <a href="tel:+77079116196" class="btn btn-primary btn-large">
+                        <i class="fas fa-truck-moving"></i> Эвакуатор шақыру
+                    </a>
+                    <a href="tel:+77079116196" class="btn btn-secondary btn-large">
+                        <i class="fas fa-phone"></i> Қоңырау шалу
+                    </a>
+                </div>
+                <div class="cta-phone">
+                    <i class="fas fa-phone"></i>
+                    Жаңалықтарды алмау үшін хабарласыңыз: <a href="tel:+77079116196">+7 707 911 61 96</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <div class="logo-mark">
+                            <i class="fas fa-truck-moving"></i>
+                        </div>
+                        <span>AlmatyEvakuator</span>
+                    </a>
+                    <p>Алматы және аймақтық қызмет аймақтарында 24/7 эвакуатор мен жолдық көмек көрсету қызметі.</p>
+                    <div class="footer-social">
+                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Қызметтер</h4>
+                    <ul>
+                        <li><a href="#services">Эвакуатор шақыру</a></li>
+                        <li><a href="#services">Жолдық көмек</a></li>
+                        <li><a href="#services">Апаттан кейін тасымалдау</a></li>
+                        <li><a href="#how-it-works">Қалай жұмыс істейді</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Аймақтар</h4>
+                    <ul>
+                        <li><a href="#areas">Алматы</a></li>
+                        <li><a href="#areas">Қаскелең</a></li>
+                        <li><a href="#areas">Шамалған</a></li>
+                        <li><a href="#areas">ұзынағаш</a></li>
+                        <li><a href="#areas">Жандосов</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Байланыс</h4>
+                    <ul>
+                        <li><a href="tel:+77079116196">+7 707 911 61 96</a></li>
+                        <li><a href="https://wa.me/77079116196" target="_blank">WhatsApp</a></li>
+                        <li><a href="#contact">Сұрақ жіберу</a></li>
+                        <li><a href="#">Электрондық почта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AlmatyEvakuator. Барлық құқықтар қорғалған. Қазақстан.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Call -->
+    <div class="floating-call">
+        <a href="https://wa.me/77079116196" class="floating-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <div class="floating-label">WhatsApp арқылы жазу</div>
+        <a href="tel:+77079116196" class="floating-btn">
+            <i class="fas fa-phone"></i>
+        </a>
+        <div class="floating-label">Қоңырау шалу</div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Сұраныс жіберілді! Біз сізге жақында хабарласамыз.</span>
+    </div>
+
+    <script>
+        // Parallax Effect
+        const parallaxLayers = document.querySelectorAll('.parallax-layer');
+        let mouseX = 0;
+        let mouseY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let scrollY = 0;
+
+        // Mouse movement parallax
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        // Smooth interpolation for mouse parallax
+        function updateMouseParallax() {
+            currentX += (mouseX - currentX) * 0.05;
+            currentY += (mouseY - currentY) * 0.05;
+
+            parallaxLayers.forEach(layer => {
+                const speed = parseFloat(layer.getAttribute('data-speed'));
+                const x = currentX * speed * 40;
+                const y = currentY * speed * 40;
+                layer.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            });
+
+            requestAnimationFrame(updateMouseParallax);
+        }
+
+        // Scroll parallax
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+            updateScrollParallax();
+        });
+
+        function updateScrollParallax() {
+            parallaxLayers.forEach(layer => {
+                const speed = parseFloat(layer.getAttribute('data-speed'));
+                const y = -scrollY * speed * 0.5;
+                layer.style.transform = `translate3d(0, ${y}px, 0)`;
+            });
+        }
+
+        // Initialize parallax
+        if (window.innerWidth > 768) {
+            updateMouseParallax();
+        }
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            });
+        });
+
+        // Reveal animations
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Toast
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 5000);
+        }
+
+        // Form submission (if any forms exist)
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                showToast('Сұраныс жіберілді! Біз сізге жақында хабарласамыз.');
+                form.reset();
+            });
+        });
+
+        // Add particles to hero
+        const particlesContainer = document.querySelector('.layer-particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.width = Math.random() * 6 + 3 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 15) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
